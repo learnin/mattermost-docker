@@ -1,0 +1,44 @@
+version: '2'
+services:
+  db:
+    build: db
+    environment:
+      - DATADIR=/var/lib/mysql
+      - MYSQL_ROOT_PASSWORD=mattermost
+      - MYSQL_DATABASE=mattermost
+      - MYSQL_USER=mattermost
+      - MYSQL_PASSWORD=mattermost
+    ports:
+      - "3306:3306"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - db-data:/var/lib/mysql
+  app:
+    build: app
+    environment:
+      - DB_HOST=db
+      - DB_PORT_5432_TCP_PORT=3306
+      - MM_DBNAME=mattermost
+      - MM_USERNAME=mattermost
+      - MM_PASSWORD=mattermost
+    links:
+      - db:db
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - app-config:/mattermost/config
+      - app-data:/mattermost/data
+  web:
+    build: web
+    environment:
+      - MATTERMOST_ENABLE_SSL=false
+      - PLATFORM_PORT_80_TCP_PORT=80
+    links:
+      - app:app
+    ports:
+      - "80:80"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+volumes:
+  db-data: {}
+  app-config: {}
+  app-data: {}
