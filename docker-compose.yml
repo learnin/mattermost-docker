@@ -14,7 +14,11 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - db-data:/var/lib/mysql
   app:
-    build: app
+    build:
+      context: app
+      args:
+        - http_proxy=${http_proxy}
+        - https_proxy=${https_proxy}
     environment:
       - DB_HOST=db
       - DB_PORT_5432_TCP_PORT=3306
@@ -28,7 +32,11 @@ services:
       - app-config:/mattermost/config
       - app-data:/mattermost/data
   web:
-    build: web
+    build:
+      context: web
+      args:
+        - http_proxy=${http_proxy}
+        - https_proxy=${https_proxy}
     environment:
       - MATTERMOST_ENABLE_SSL=false
       - PLATFORM_PORT_80_TCP_PORT=80
