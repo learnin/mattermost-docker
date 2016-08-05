@@ -11,9 +11,9 @@ docker run \
   -e 'MYSQL_DATABASE=mattermost' \
   -e 'MYSQL_USER=mattermost' \
   -e 'MYSQL_PASSWORD=mattermost' \
+  -e 'TZ=Asia/Tokyo' \
   --name mattermostdocker_db_1 \
   -p 3306:3306 \
-  -v /etc/localtime:/etc/localtime:ro \
   -v mattermostdocker_db-data:/var/lib/mysql \
   mattermostdocker_db
 
@@ -31,9 +31,9 @@ docker run \
   -e 'MM_USERNAME=mattermost' \
   -e 'MM_PASSWORD=mattermost' \
   -e 'MM_DBNAME=mattermost' \
+  -e 'TZ=Asia/Tokyo' \
   --link mattermostdocker_db_1:db \
   --name mattermostdocker_app_1 \
-  -v /etc/localtime:/etc/localtime:ro \
   -v mattermostdocker_app-config:/mattermost/config \
   -v mattermostdocker_app-data:/mattermost/data \
   mattermostdocker_app
@@ -47,8 +47,8 @@ docker run \
   -d \
   -e 'MATTERMOST_ENABLE_SSL=false' \
   -e 'PLATFORM_PORT_80_TCP_PORT=80' \
+  -e 'TZ=Asia/Tokyo' \
   --link mattermostdocker_app_1:app \
   --name mattermostdocker_web_1 \
   -p 80:80 \
-  -v /etc/localtime:/etc/localtime:ro \
   mattermostdocker_web
