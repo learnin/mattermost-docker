@@ -39,7 +39,7 @@ docker run \
   mattermostdocker_app
 
 # Enable cjk search
-sleep 5
+sleep 30
 docker exec mattermostdocker_db_1 /create_fulltext_index.sh
 
 # web
