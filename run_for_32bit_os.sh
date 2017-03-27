@@ -4,7 +4,7 @@
 docker volume create --name mattermostdocker_db-data
 
 # db
-docker run \
+docker container run \
   -d \
   -e 'DATADIR=/var/lib/mysql' \
   -e 'MYSQL_ROOT_PASSWORD=mattermost' \
@@ -26,7 +26,7 @@ docker volume create --name mattermostdocker_app-config
 docker volume create --name mattermostdocker_app-data
 
 # app
-docker run \
+docker container run \
   -d \
   -e 'DB_HOST=db' \
   -e 'DB_PORT_5432_TCP_PORT=3306' \
@@ -48,10 +48,10 @@ sleep 30
 MYSQL_DATABASE=`docker inspect -f='{{range $v := .Config.Env}}{{println $v}}{{end}}' mattermostdocker_db_1 | grep MYSQL_DATABASE | sed 's/MYSQL_DATABASE=//'`
 MYSQL_ROOT_PASSWORD=`docker inspect -f='{{range $v := .Config.Env}}{{println $v}}{{end}}' mattermostdocker_db_1 | grep MYSQL_ROOT_PASSWORD | sed 's/MYSQL_ROOT_PASSWORD=//'`
 
-docker exec mattermostdocker_db_1 /create_fulltext_index.sh $MYSQL_DATABASE $MYSQL_ROOT_PASSWORD
+docker container exec mattermostdocker_db_1 /create_fulltext_index.sh $MYSQL_DATABASE $MYSQL_ROOT_PASSWORD
 
 # web
-docker run \
+docker container run \
   -d \
   -e 'MATTERMOST_ENABLE_SSL=false' \
   -e 'PLATFORM_PORT_80_TCP_PORT=80' \
