@@ -10,7 +10,7 @@ services:
       - MYSQL_PASSWORD=mattermost
       - TZ=Asia/Tokyo
     ports:
-      - "3306:3306"
+      - "50102:3306"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - db-data:/var/lib/mysql
@@ -46,7 +46,7 @@ services:
     links:
       - app:app
     ports:
-      - "80:80"
+      - "50002:80"
     volumes:
       - /etc/localtime:/etc/localtime:ro
 volumes:
