@@ -12,6 +12,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - db-data:/var/lib/mysql
   app:
     build:
@@ -29,6 +30,7 @@ services:
     links:
       - db:db
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - app-config:/mattermost/config
       - app-data:/mattermost/data
   web:
@@ -45,6 +47,8 @@ services:
       - app:app
     ports:
       - "80:80"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
 volumes:
   db-data: {}
   app-config: {}
