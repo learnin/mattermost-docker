@@ -14,6 +14,7 @@ docker run \
   -e 'TZ=Asia/Tokyo' \
   --name mattermostdocker_db_1 \
   -p 50102:3306 \
+  --restart always \
   -v /etc/localtime:/etc/localtime:ro \
   -v mattermostdocker_db-data:/var/lib/mysql \
   mattermostdocker_db
@@ -35,6 +36,7 @@ docker run \
   -e 'TZ=Asia/Tokyo' \
   --link mattermostdocker_db_1:db \
   --name mattermostdocker_app_1 \
+  --restart always \
   -v /etc/localtime:/etc/localtime:ro \
   -v mattermostdocker_app-config:/mattermost/config \
   -v mattermostdocker_app-data:/mattermost/data \
@@ -57,5 +59,6 @@ docker run \
   --link mattermostdocker_app_1:app \
   --name mattermostdocker_web_1 \
   -p 50002:80 \
+  --restart always \
   -v /etc/localtime:/etc/localtime:ro \
   mattermostdocker_web
