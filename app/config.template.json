@@ -1,7 +1,7 @@
 {
     "ServiceSettings": {
         "ListenAddress": ":80",
-        "MaximumLoginAttempts": 10,
+        "MaximumLoginAttempts": 100,
         "SegmentDeveloperKey": "",
         "GoogleDeveloperKey": "",
         "EnableOAuthServiceProvider": false,
@@ -11,36 +11,21 @@
         "EnableOnlyAdminIntegrations": true,
         "EnablePostUsernameOverride": true,
         "EnablePostIconOverride": true,
+        "EnableLinkPreviews": true,
         "EnableTesting": false,
-        "EnableDeveloper": false,
         "EnableSecurityFixAlert": false,
         "EnableInsecureOutgoingConnections": true,
-        "EnableMultifactorAuthentication": false,
         "AllowCorsFrom": "*",
-        "SessionLengthWebInDays": 30,
-        "SessionLengthMobileInDays": 30,
-        "SessionLengthSSOInDays": 30,
-        "SessionCacheInMinutes": 10,
-        "WebsocketSecurePort": 443,
-        "WebsocketPort": 80,
-        "WebserverMode": "gzip",
-        "EnableCustomEmoji": true,
-        "RestrictCustomEmojiCreation": "all"
+        "EnableCustomEmoji": true
     },
     "TeamSettings": {
         "SiteName": "Mattermost",
-        "MaxUsersPerTeam": 100,
+        "MaxUsersPerTeam": 500,
         "EnableTeamCreation": true,
         "EnableUserCreation": true,
-        "EnableOpenServer": true,
+        "EnableOpenServer": false,
         "RestrictCreationToDomains": "",
-        "RestrictTeamNames": true,
-        "EnableCustomBrand": false,
-        "CustomBrandText": "",
-        "RestrictDirectMessage": "any",
-        "RestrictTeamInvite": "all",
-        "RestrictPublicChannelManagement": "all",
-        "RestrictPrivateChannelManagement": "all"
+        "RestrictTeamNames": true
     },
     "SqlSettings": {
         "DriverName": "mysql",
@@ -58,17 +43,10 @@
         "FileLevel": "INFO",
         "FileFormat": "",
         "FileLocation": "",
-        "EnableWebhookDebugging": false
-    },
-    "PasswordSettings": {
-        "MinimumLength": 5,
-        "Lowercase": false,
-        "Number": false,
-        "Uppercase": false,
-        "Symbol": false
+        "EnableWebhookDebugging": false,
+        "EnableDiagnostics": false
     },
     "FileSettings": {
-        "MaxFileSize": 52428800,
         "DriverName": "local",
         "Directory": "/mattermost/data/",
         "EnablePublicLink": true,
@@ -83,21 +61,16 @@
         "AmazonS3AccessKeyId": "",
         "AmazonS3SecretAccessKey": "",
         "AmazonS3Bucket": "",
-        "AmazonS3Region": "",
-        "AmazonS3Endpoint": "",
-        "AmazonS3BucketEndpoint": "",
-        "AmazonS3LocationConstraint": false,
-        "AmazonS3LowercaseBucket": false
+        "AmazonS3Region": ""
     },
     "EmailSettings": {
         "EnableSignUpWithEmail": true,
         "EnableSignInWithEmail": true,
-        "EnableSignInWithUsername": false,
+        "EnableSignInWithUsername": true,
         "SendEmailNotifications": false,
         "RequireEmailVerification": false,
         "FeedbackName": "",
         "FeedbackEmail": "",
-        "FeedbackOrganization": "",
         "SMTPUsername": "",
         "SMTPPassword": "",
         "SMTPServer": "",
@@ -120,14 +93,6 @@
         "ShowEmailAddress": true,
         "ShowFullName": true
     },
-    "SupportSettings": {
-        "TermsOfServiceLink": "/static/help/terms.html",
-        "PrivacyPolicyLink": "/static/help/privacy.html",
-        "AboutLink": "/static/help/about.html",
-        "HelpLink": "/static/help/help.html",
-        "ReportAProblemLink": "/static/help/report_problem.html",
-        "SupportEmail": ""
-    },
     "GitLabSettings": {
         "Enable": false,
         "Secret": "",
@@ -137,62 +102,9 @@
         "TokenEndpoint": "",
         "UserApiEndpoint": ""
     },
-    "GoogleSettings": {
-        "Enable": false,
-        "Secret": "",
-        "Id": "",
-        "Scope": "",
-        "AuthEndpoint": "",
-        "TokenEndpoint": "",
-        "UserApiEndpoint": ""
-    },
-    "LdapSettings": {
-        "Enable": false,
-        "LdapServer": "",
-        "LdapPort": 389,
-        "ConnectionSecurity": "",
-        "BaseDN": "",
-        "BindUsername": "",
-        "BindPassword": "",
-        "UserFilter": "",
-        "FirstNameAttribute": "",
-        "LastNameAttribute": "",
-        "EmailAttribute": "",
-        "UsernameAttribute": "",
-        "NicknameAttribute": "",
-        "IdAttribute": "",
-        "SyncIntervalMinutes": 60,
-        "SkipCertificateVerification": false,
-        "QueryTimeout": 60,
-        "MaxPageSize": 0,
-        "LoginFieldName": ""
-    },
-    "ComplianceSettings": {
-        "Enable": false,
-        "Directory": "./data/",
-        "EnableDaily": false
-    },
     "LocalizationSettings": {
         "DefaultServerLocale": "en",
         "DefaultClientLocale": "ja",
         "AvailableLocales": "ja"
-    },
-    "SamlSettings": {
-        "Enable": false,
-        "Verify": false,
-        "Encrypt": false,
-        "IdpUrl": "",
-        "IdpDescriptorUrl": "",
-        "AssertionConsumerServiceURL": "",
-        "IdpCertificateFile": "",
-        "PublicCertificateFile": "",
-        "PrivateKeyFile": "",
-        "FirstNameAttribute": "",
-        "LastNameAttribute": "",
-        "EmailAttribute": "",
-        "UsernameAttribute": "",
-        "NicknameAttribute": "",
-        "LocaleAttribute": "",
-        "LoginButtonText": "With SAML"
     }
 }
