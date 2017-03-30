@@ -11,7 +11,7 @@ services:
       - TZ=Asia/Tokyo
     ports:
       - "50102:3306"
-    restart: always
+    restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - db-data:/var/lib/mysql
@@ -30,7 +30,7 @@ services:
       - MM_USERNAME=mattermost
       - MM_PASSWORD=mattermost
       - TZ=Asia/Tokyo
-    restart: always
+    restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - app-config:/mattermost/config
@@ -49,7 +49,7 @@ services:
       - TZ=Asia/Tokyo
     ports:
       - "50002:80"
-    restart: always
+    restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
 volumes:
