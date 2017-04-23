@@ -1,10 +1,7 @@
 #!/bin/bash
 set -e
 
-docker-compose build
-docker-compose up -d
-
-# Enable cjk search
+# Enable CJK search
 sleep 30
 
 MYSQL_DATABASE=`docker inspect -f='{{range $v := .Config.Env}}{{println $v}}{{end}}' mattermostdocker_db_1 | grep MYSQL_DATABASE | sed 's/MYSQL_DATABASE=//'`
