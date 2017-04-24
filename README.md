@@ -15,7 +15,7 @@ docker-compose build
 docker-compose up -d
 
 # Execute the following only on first startup.
-./run_only_on_first_startup.sh
+./initial_setup.sh
 ```
 ### When using Docker Compose and Docker-machine
 ```shell
@@ -30,8 +30,8 @@ docker-compose build
 docker-compose up -d
 
 # Execute the following only on first startup.
-docker-machine scp run_only_on_first_startup.sh default:/tmp/mattermost_run_only_on_first_startup.sh
-docker-machine ssh default "sh /tmp/mattermost_run_only_on_first_startup.sh; rm -f /tmp/mattermost_run_only_on_first_startup.sh"
+docker-machine scp initial_setup.sh default:/tmp/mattermost_initial_setup.sh
+docker-machine ssh default "sh /tmp/mattermost_initial_setup.sh; rm -f /tmp/mattermost_initial_setup.sh"
 ```
 ### When not using Docker Compose(e.g. Windows 32bit)
 ```shell
@@ -47,6 +47,6 @@ docker-machine scp run_for_32bit_os.sh default:/tmp/mattermost_run_for_32bit_os.
 docker-machine ssh default "sh /tmp/mattermost_run_for_32bit_os.sh; rm -f /tmp/mattermost_run_for_32bit_os.sh"
 
 # Execute the following only on first startup.
-docker-machine scp run_only_on_first_startup.sh default:/tmp/mattermost_run_only_on_first_startup.sh
-docker-machine ssh default "sh /tmp/mattermost_run_only_on_first_startup.sh; rm -f /tmp/mattermost_run_only_on_first_startup.sh"
+docker-machine scp initial_setup.sh default:/tmp/mattermost_initial_setup.sh
+docker-machine ssh default "sh /tmp/mattermost_initial_setup.sh; rm -f /tmp/mattermost_initial_setup.sh"
 ```
