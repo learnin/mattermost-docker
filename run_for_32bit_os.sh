@@ -17,7 +17,7 @@ docker container run \
   --restart unless-stopped \
   -v /etc/localtime:/etc/localtime:ro \
   -v mattermostdocker_db-data:/var/lib/mysql \
-  mattermostdocker_db
+  learnin/mattermost-db
 
 # app-config volume
 docker volume create --name mattermostdocker_app-config
@@ -40,7 +40,7 @@ docker container run \
   -v /etc/localtime:/etc/localtime:ro \
   -v mattermostdocker_app-config:/mattermost/config \
   -v mattermostdocker_app-data:/mattermost/data \
-  mattermostdocker_app
+  learnin/mattermost-app
 
 # web
 docker container run \
@@ -53,4 +53,4 @@ docker container run \
   -p 50002:80 \
   --restart unless-stopped \
   -v /etc/localtime:/etc/localtime:ro \
-  mattermostdocker_web
+  learnin/mattermost-web

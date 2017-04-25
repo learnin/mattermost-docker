@@ -1,6 +1,7 @@
 version: '3'
 services:
   db:
+    build: db
     environment:
       - DATADIR=/var/lib/mysql
       - MYSQL_ROOT_PASSWORD=mattermost
@@ -8,7 +9,6 @@ services:
       - MYSQL_USER=mattermost
       - MYSQL_PASSWORD=mattermost
       - TZ=Asia/Tokyo
-    image: learnin/mattermost-db
     ports:
       - "50102:3306"
     restart: unless-stopped
@@ -16,6 +16,11 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - db-data:/var/lib/mysql
   app:
+    build:
+      args:
+        - http_proxy=${http_proxy}
+        - https_proxy=${https_proxy}
+      context: app
     depends_on:
       - db
     environment:
@@ -25,20 +30,23 @@ services:
       - MM_USERNAME=mattermost
       - MM_PASSWORD=mattermost
       - TZ=Asia/Tokyo
-    image: learnin/mattermost-app
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - app-config:/mattermost/config
       - app-data:/mattermost/data
   web:
+    build:
+      args:
+        - http_proxy=${http_proxy}
+        - https_proxy=${https_proxy}
+      context: web
     depends_on:
       - app
     environment:
       - MATTERMOST_ENABLE_SSL=false
       - PLATFORM_PORT_80_TCP_PORT=80
       - TZ=Asia/Tokyo
-    image: learnin/mattermost-web
     ports:
       - "50002:80"
     restart: unless-stopped
