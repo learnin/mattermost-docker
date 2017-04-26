@@ -1,4 +1,6 @@
 #!/bin/bash
+set -m
+
 config=/mattermost/config/config.json
 DB_HOST=${DB_HOST:-db}
 DB_PORT_5432_TCP_PORT=${DB_PORT_5432_TCP_PORT:-5432}
@@ -28,6 +30,28 @@ done
 # Wait to avoid "panic: Failed to open sql connection pq: the database system is starting up"
 sleep 1
 
-echo "Starting platform"
 cd /mattermost/bin
-./platform $*
+
+# Enable CJK search
+fulltext_index_created=/fulltext_index_created
+if [ ! -f $fulltext_index_created ]; then
+    echo "Starting platform"
+    # Start in background to execute follow sql.
+    ./platform $* &
+
+    # Wait to create tables by platform command.
+    sleep 30
+
+    # Create fulltext index with ngram parser (see: https://github.com/mattermost/platform/issues/2033)
+    mysql -u $MM_USERNAME -p$MM_PASSWORD -h $DB_HOST $MM_DBNAME <<-EOSQL
+		DROP INDEX idx_posts_message_txt ON Posts;
+		CREATE FULLTEXT INDEX idx_posts_message_txt ON Posts (Message) WITH PARSER ngram COMMENT 'ngram index';
+	EOSQL
+	echo "fulltext index with ngram parser was created."
+    touch $fulltext_index_created
+
+    fg
+else
+    echo "Starting platform"
+    ./platform $*
+fi

@@ -1,6 +1,6 @@
 FROM ubuntu:14.04
 
-RUN apt-get update && apt-get -y install curl netcat
+RUN apt-get update && apt-get -y install curl netcat mysql-client
 RUN mkdir -p /mattermost/data
 
 RUN curl https://releases.mattermost.com/3.7.3/mattermost-team-3.7.3-linux-amd64.tar.gz | tar -xvz

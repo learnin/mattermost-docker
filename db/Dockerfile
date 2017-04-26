@@ -12,9 +12,7 @@ RUN { \
     } > /etc/mysql/conf.d/charset.cnf
 
 COPY docker-entrypoint.sh /
-COPY create_fulltext_index.sh /
 RUN chmod +x /docker-entrypoint.sh
-RUN chmod +x /create_fulltext_index.sh
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
