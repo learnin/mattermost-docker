@@ -45,6 +45,7 @@ docker container run \
 # web
 docker container run \
   -d \
+  -e 'APP_HOST=app' \
   -e 'MATTERMOST_ENABLE_SSL=false' \
   -e 'PLATFORM_PORT_80_TCP_PORT=80' \
   -e 'TZ=Asia/Tokyo' \
