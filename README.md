@@ -26,6 +26,40 @@ docker-machine scp run_for_32bit_os.sh default:/tmp/mattermost_run_for_32bit_os.
 docker-machine ssh default "sh /tmp/mattermost_run_for_32bit_os.sh; rm -f /tmp/mattermost_run_for_32bit_os.sh"
 ```
 
+## How to backup
+```shell
+docker container run \
+  --rm \
+  -v mattermostdocker_db-data:/target/db-data \
+  -v mattermostdocker_app-config:/target/app-config \
+  -v mattermostdocker_app-data:/target/app-data \
+  -v $(pwd):/backup \
+  ubuntu tar cvzfp /backup/mattermost_backup.tar.gz /target
+```
+
+If you use docker-machine, execute the above command in docker-machine, and copy backup.tar.gz from docker-machine to host machine with the following command.
+
+```shell
+docker-machine scp default:~/mattermost_backup.tar.gz .
+```
+
+## How to restore
+```shell
+docker container run \
+  --rm \
+  -v mattermostdocker_db-data:/target/db-data \
+  -v mattermostdocker_app-config:/target/app-config \
+  -v mattermostdocker_app-data:/target/app-data \
+  -v $(pwd):/backup \
+  ubuntu bash -c "cd /target && tar xvzfp /backup/mattermost_backup.tar.gz --strip 1"
+```
+
+If you use docker-machine, execute the following command to copy backup.tar.gz from host machine to docker-machine, and execute the above command in docker-machine.
+
+```shell
+docker-machine scp mattermost_backup.tar.gz default:~/
+```
+
 # For developers
 
 ## How to build and run
