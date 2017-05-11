@@ -7,5 +7,6 @@ sed -Ei "s/APP_PORT/$PLATFORM_PORT_80_TCP_PORT/" /etc/nginx/sites-available/matt
 if [ "$MATTERMOST_ENABLE_SSL" = true ]; then
     ssl="-ssl"
 fi
+rm -f /etc/nginx/sites-enabled/mattermost
 ln -s /etc/nginx/sites-available/mattermost$ssl /etc/nginx/sites-enabled/mattermost
 nginx -g 'daemon off;'
